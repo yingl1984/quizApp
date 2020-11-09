@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Quiz App</title>
+  <title>Super Mario Quiz App</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet"
     type="text/css" />
   <link href="app.css" rel="stylesheet" type="text/css" />
@@ -20,13 +20,14 @@
   <main>
     <section id="start">
       <p>Welcome to the Super Mario quiz! There are 5 questions in the quiz. Please click the <em>Start</em> button to start the journey!</p> 
+      <button id="start-quiz">Start</button>
     </section>
 
     <section id="questions">
       <h2></h2>
-      <form id="choices">
-        <fieldset></fieldset>
-        <button id="start-quiz">Start</button>
+      <form>
+        <fieldset id="choices"></fieldset>
+        <button id="submit">Submit</button>
       </form>
     </section>
 
