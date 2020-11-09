@@ -7,33 +7,34 @@ const STORE = {
   [
     { title: "Which of these games came first?" , 
     choices: ["Super Mario World", "Super Mario Bros", "Super Mario Land", "Mario Bros"],
-    correctIndex: 2,
+    correctIndex: 1,
     },
     {
       title: "Which of these sentences is true about Mario and Luigi?",
       choices: ["Mario is taller and Luigi wears red", "Mario is shorter and Luigi wears red", "Mario is taller and Luigi wears green", "Mario is shorter and Luigi wears green"],
-      correctIndex: 4
+      correctIndex: 3
     },
     {
       title: "Mario went 3D in Super Mario 64, but in what year?",
       choices: ["1994", "1995", "1996", "1997"],
-      correctIndex: 3
+      correctIndex: 2
     },
     {
       title: "What is the actual name of the raccoon-y outfit Mario wears?",
       choices: ["Kabooki suit", "Zanoosi suit", "Tanooki suit", "Adooki suit"],
-      correctIndex: 3
+      correctIndex: 2
     },
     {
       title: "What is Princess Peach also known as?",
       choices: ["Princess Toadstool", "Princess Fungus", "Princess Mushroom", "Princess Portobello"],
-      correctIndex: 1
+      correctIndex: 0
     }
   ],
   quizStarted: false,
   currentQuestionNum: 0,
   score: 0,
-  hasFeedback: false
+  hasFeedback: false,
+  guess: 0
 };
 
 /**
@@ -59,9 +60,13 @@ const STORE = {
 function render(){
   $('#start').hide();
   $('#questions').hide();
+  $('#feedback').hide();
+  $('#summary').hide();
 
-  if(!STORE.started){
+  if(!STORE.quizStarted){
     $('#start').show();
+  }else if(STORE.hasFeedback){
+    renderFeedback();
   }else if(STORE.currentQuestionNum < STORE.questions.length){
     renderQuestion();
   }else{
@@ -82,22 +87,56 @@ function renderQuestion(){
     );
   }
 }
+
+function renderFeedback(){
+  $('#feedback').show();
+  $('#feedback h2').text(STORE.hasFeedback);
+  const curQue = STORE.questions[STORE.currentQuestionNum];
+  if(STORE.hasFeedback === "Incorrect!"){
+    console.log("STORE.hasFeedback");
+    $('.user-answer').text(`You answered ${STORE.guess}`);  
+  }
+  $('.correct-answer').text(`The correct answer is ${curQue.choices[curQue.correctIndex]}`);
+}
 /********** EVENT HANDLER FUNCTIONS **********/
 
 // These functions handle events (submit, click, etc)
 function startQuiz(){
-  $('#start-quiz').click(even => {
-    console.log("start button works");
-    STORE.quizStarted = true;
+  $('#start-quiz').click(even=>{
+   STORE.quizStarted = true;
     render();
   })
 }
 
+function submitChoice(){
+  $('#questions form').submit(even => {
+    even.preventDefault();
+    const userAnswer = $('input[type="radio"]:checked').val();
+    const curQue = STORE.questions[STORE.currentQuestionNum];
+    // debugger;
+    if(userAnswer == curQue.correctIndex){
+      STORE.score++;
+      STORE.hasFeedback = "Correct!";
+    }else{
+      STORE.guess = STORE.questions[STORE.currentQuestionNum].choices[userAnswer];
+      STORE.hasFeedback = "Incorrect!";
+    }
+    render();
+  });
+}
 
+function nextQuestion(){
+  $('#next').click(even => {
+    STORE.hasFeedback=false;
+    render();
+  });
+}
 // logical procedure 
 function quiz(){
-  startQuiz();
   render();
+  startQuiz();
+  submitChoice();
+  nextQuestion();
 }
 
 $(quiz);
