@@ -62,23 +62,33 @@ function render(){
   $('#questions').hide();
   $('#feedback').hide();
   $('#summary').hide();
+  $('#score').hide();
 
   if(!STORE.quizStarted){
     $('#start').show();
   }else if(STORE.hasFeedback){
+    renderScore();
     renderFeedback();
   }else if(STORE.currentQuestionNum < STORE.questions.length){
+    renderScore();
     renderQuestion();
   }else{
     renderSummary();
   }
 }
 
+function renderScore(){
+  $('#score').show();
+  $('#score div p').text(`${STORE.score}/${STORE.questions.length}`);
+}
+
 function renderQuestion(){
   $('#questions').show();
+  
   const curQue = STORE.questions[STORE.currentQuestionNum];
   //Fill the question into the <h1>
   $('#questions h2').text(curQue.title);
+  $('#choices').text('');
   for(let i = 0; i < curQue.choices.length; i++){
     $('#choices').append(`
       <input type="radio", name="choice", value="${i}", id="${i}">
@@ -90,13 +100,19 @@ function renderQuestion(){
 
 function renderFeedback(){
   $('#feedback').show();
+  $('.user-answer').text('');
   $('#feedback h2').text(STORE.hasFeedback);
   const curQue = STORE.questions[STORE.currentQuestionNum];
   if(STORE.hasFeedback === "Incorrect!"){
     console.log("STORE.hasFeedback");
-    $('.user-answer').text(`You answered ${STORE.guess}`);  
+    $('.user-answer').text(`You answered ${STORE.guess}.`);  
   }
-  $('.correct-answer').text(`The correct answer is ${curQue.choices[curQue.correctIndex]}`);
+  $('.correct-answer').text(`The correct answer is ${curQue.choices[curQue.correctIndex]}.`);
+}
+
+function renderSummary(){
+  $('#summary').show();
+  $('#summary p').text(`Your score is : ${STORE.score}/${STORE.questions.length}`);
 }
 /********** EVENT HANDLER FUNCTIONS **********/
 
@@ -104,6 +120,7 @@ function renderFeedback(){
 function startQuiz(){
   $('#start-quiz').click(even=>{
    STORE.quizStarted = true;
+  
     render();
   })
 }
@@ -128,8 +145,18 @@ function submitChoice(){
 function nextQuestion(){
   $('#next').click(even => {
     STORE.hasFeedback=false;
+    STORE.currentQuestionNum = STORE.currentQuestionNum + 1;
     render();
   });
+}
+
+function restartQuiz(){
+  $('#restart').click(event => {
+    STORE.quizStarted = false;
+    STORE.currentQuestionNum = 0; 
+    STORE.score = 0;
+    render();
+  })
 }
 // logical procedure 
 function quiz(){
@@ -137,6 +164,7 @@ function quiz(){
   startQuiz();
   submitChoice();
   nextQuestion();
+  restartQuiz();
 }
 
 $(quiz);

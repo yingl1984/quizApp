@@ -13,37 +13,66 @@
 
 <body>
   <header>
-    <h1>Welcome to the Super Mario quiz</h1>
-    <p class = "score"></p>
-    <p class = "progress"></p>
+    <div class="wrapper">
+      <h1>Super Mario quiz</h1>
+      <p class = "score"></p>
+      <p class = "progress"></p>
+    </div>
+    
   </header>
   <main>
-    <section id="start">
-      <p>Welcome to the Super Mario quiz! There are 5 questions in the quiz. Please click the <em>Start</em> button to start the journey!</p> 
-      <button id="start-quiz">Start</button>
-    </section>
+    <div class="wrapper">
+      <section id="score">
+        <div>
+          <p></p>
+        </div>
+      </section>
+    </div>
+    
+    <div class="wrapper">
+      <section id="start">
+        <p>Welcome to the Super Mario quiz! There are 5 questions in the quiz. Please click the <em>Start</em> button to start the journey!</p> 
+        <button id="start-quiz">Start</button>
+      </section>
+    </div>
+    
+    <div class="wrapper">
+      <section id="questions">
+        <h2></h2>
+        <form>
+          <fieldset id="choices"></fieldset>
+          <button id="submitAns">Submit</button>
+        </form>
+      </section>
+    </div>
 
-    <section id="questions">
-      <h2></h2>
-      <form>
-        <fieldset id="choices"></fieldset>
-        <button id="submitAns">Submit</button>
-      </form>
-    </section>
+    <div class="wrapper">
+      <section id="questions">
+        <h2></h2>
+        <form>
+          <fieldset id="choices"></fieldset>
+          <button id="submitAns">Submit</button>
+        </form>
+      </section>
+    </div>
+    
+    <div calss="wrapper">
+      <section id="feedback">
+        <h2></h2>
+        <p class="user-answer"></p>
+        <p class="correct-answer"></p>
+        <button id="next">Next Question</button>
+      </section>
+    </div>
+    
+    <div class="wrapper">
+      <section id="summary">
+        <h2>Congratulations! You completed all the questions!</h2>
+        <p></p>
+        <button id="restart">Restart</button>
+      </section>
+    </div>
 
-    <section id="feedback">
-      <h2></h2>
-      <p class="user-answer"></p>
-      <p class="correct-answer"></p>
-      <button id="next">Next Question</button>
-    </section>
-
-
-    <section id="summary">
-      <h2>Congratulations! You completed all the questions!</h2>
-      <p></p>
-      <button id="restart">Restart</button>
-    </section>
   </main>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.js" crossorigin="anonymous"></script>
   <script src="app.js"></script>
