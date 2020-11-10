@@ -63,7 +63,40 @@ const STORE = {
 
 /********** TEMPLATE GENERATION FUNCTIONS **********/
 
-// These functions return HTML templates
+// These functions return question and choices HTML templates
+function generateFeedback(curQue){
+  if(STORE.hasFeedback === "Incorrect!"){
+    $('#feedback h2').addClass("red");
+    $('.user-answer').text(`You answered ${STORE.guess}.`); 
+  }
+  $('#feedback h2').addClass("green");
+  $('.correct-answer').text(`The correct answer is ${curQue.choices[curQue.correctIndex]}.`);
+}
+
+// These functions return feedback HTML templates
+function generateEachChoice(curQue,i){
+  return `
+  <input type="radio", name="choice", value="${i}", id="${i}", required="required">
+  <label for="${i}", class="radioStyle">${curQue.choices[i]}</label>
+  <br>
+` ;
+}
+
+function generateQuestionAndChoices(curQue){
+  //Fill the question into the <h2>
+  $('#questions h2').text(curQue.title);
+  // render the image
+  $('#questions img').attr("src",curQue.img);
+  $('#questions img').attr("alt",curQue.alt);
+  // render the choices
+  $('#choices').text('');
+  for(let i=0; i<curQue.choices.length; i++){
+    const str=generateEachChoice(curQue,i);
+    console.log(str);
+    $('#choices').append(str);
+
+  }
+}
 
 /********** RENDER FUNCTION(S) **********/
 // main logical flow
@@ -92,6 +125,7 @@ function renderTitle(){
   $('#quizTitle').text("Super Mario quiz");
 }
 
+// render welcome page with start button
 function renderWel(){
   $('#start').show();
   $('#start p').text("Welcome to the Super Mario quiz! There are 5 questions in the quiz. Please click the Start button to start the journey!");
@@ -107,21 +141,7 @@ function renderScore(){
 function renderQuestion(){
   $('#questions').show();
   const curQue = STORE.questions[STORE.currentQuestionNum];
-  //Fill the question into the <h2>
-  $('#questions h2').text(curQue.title);
-  // render the image
-  $('#questions img').attr("src",curQue.img);
-  $('#questions img').attr("alt",curQue.alt);
-  // render the choices
-  $('#choices').text('');
-  for(let i=0; i<curQue.choices.length; i++){
-    $('#choices').append(`
-      <input type="radio", name="choice", value="${i}", id="${i}", required="required">
-      <label for="${i}", class="radioStyle">${curQue.choices[i]}</label>
-      <br>
-    `
-    );
-  }
+  generateQuestionAndChoices(curQue); 
 }
 
 // render the feedback page after user submiting the choice
@@ -131,14 +151,8 @@ function renderFeedback(){
   $('#feedback h2').removeClass("red");
   $('.user-answer').text('');
   $('#feedback h2').text(STORE.hasFeedback);
-
   const curQue = STORE.questions[STORE.currentQuestionNum];
-  if(STORE.hasFeedback === "Incorrect!"){
-    $('#feedback h2').addClass("red");
-    $('.user-answer').text(`You answered ${STORE.guess}.`); 
-  }
-  $('#feedback h2').addClass("green");
-  $('.correct-answer').text(`The correct answer is ${curQue.choices[curQue.correctIndex]}.`);
+  generateFeedback(curQue);
 }
 
 // render the summary page after user finished the quiz
