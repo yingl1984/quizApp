@@ -102,12 +102,22 @@ function renderQuestion(){
 
 function renderFeedback(){
   $('#feedback').show();
+  $('#feedback h2').removeClass("green");
+  $('#feedback h2').removeClass("red");
+
   $('.user-answer').text('');
   $('#feedback h2').text(STORE.hasFeedback);
+
   const curQue = STORE.questions[STORE.currentQuestionNum];
   if(STORE.hasFeedback === "Incorrect!"){
-    $('.user-answer').text(`You answered ${STORE.guess}.`);  
+    
+    $('#feedback h2').addClass("red");
+    $('.user-answer').text(`You answered ${STORE.guess}.`); 
   }
+
+  
+  $('#feedback h2').addClass("green");
+  // $('#feedback h2').className = "green";
   $('.correct-answer').text(`The correct answer is ${curQue.choices[curQue.correctIndex]}.`);
 }
 
