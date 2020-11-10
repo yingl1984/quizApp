@@ -6,28 +6,38 @@ const STORE = {
   questions: 
   [
     { title: "Which of these games came first?" , 
-    choices: ["Super Mario World", "Super Mario Bros", "Super Mario Land", "Mario Bros"],
-    correctIndex: 1,
+      choices: ["Super Mario World", "Super Mario Bros", "Super Mario Land", "Mario Bros"],
+      correctIndex: 1,
+      img:"images/q1-img.png",
+      alt:"This is a picture of Super Mario Bros"
     },
     {
       title: "Which of these sentences is true about Mario and Luigi?",
       choices: ["Mario is taller and Luigi wears red", "Mario is shorter and Luigi wears red", "Mario is taller and Luigi wears green", "Mario is shorter and Luigi wears green"],
-      correctIndex: 3
+      correctIndex: 3,
+      img:"images/q2-img.png",
+      alt:"This is a picture of Mario and Luigi"
     },
     {
       title: "Mario went 3D in Super Mario 64, but in what year?",
       choices: ["1994", "1995", "1996", "1997"],
-      correctIndex: 2
+      correctIndex: 2,
+      img:"images/q3-img.png",
+      alt:"This is a picture of 3D Super Mario game"
     },
     {
       title: "What is the actual name of the raccoon-y outfit Mario wears?",
       choices: ["Kabooki suit", "Zanoosi suit", "Tanooki suit", "Adooki suit"],
-      correctIndex: 2
+      correctIndex: 2,
+      img:"images/q4-img.png",
+      alt:"This is a picture of Super Mario wearing in raccoon-y suit"
     },
     {
       title: "What is Princess Peach also known as?",
       choices: ["Princess Toadstool", "Princess Fungus", "Princess Mushroom", "Princess Portobello"],
-      correctIndex: 0
+      correctIndex: 0,
+      img:"images/q5-img.png",
+      alt:"This is a picture of princess Peach"
     }
   ],
   quizStarted: false,
@@ -87,8 +97,14 @@ function renderQuestion(){
   $('#questions').show();
   
   const curQue = STORE.questions[STORE.currentQuestionNum];
+
   //Fill the question into the <h2>
   $('#questions h2').text(curQue.title);
+  // render the image
+  $('#questions img').attr("src",curQue.img);
+  $('#questions img').attr("alt",curQue.alt);
+  
+  // render the choices
   $('#choices').text('');
   for(let i=0; i<curQue.choices.length; i++){
     $('#choices').append(`
