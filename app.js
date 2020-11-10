@@ -62,7 +62,7 @@ function render(){
   $('#questions').hide();
   $('#feedback').hide();
   $('#summary').hide();
-  $('#score').hide();
+  $('#showScore').hide();
 
   if(!STORE.quizStarted){
     $('#start').show();
@@ -78,15 +78,16 @@ function render(){
 }
 
 function renderScore(){
-  $('#score').show();
-  $('#score div p').text(`Score: ${STORE.score}/${STORE.questions.length}`);
+  $('#showScore').show();
+  $('#currentQueNum').text(`Question ${STORE.currentQuestionNum+1} of ${STORE.questions.length}`);
+  $('#currentScore').text(`Score: ${STORE.score}/${STORE.questions.length}`);
 }
 
 function renderQuestion(){
   $('#questions').show();
   
   const curQue = STORE.questions[STORE.currentQuestionNum];
-  //Fill the question into the <h1>
+  //Fill the question into the <h2>
   $('#questions h2').text(curQue.title);
   $('#choices').text('');
   for(let i=0; i<curQue.choices.length; i++){
@@ -105,7 +106,6 @@ function renderFeedback(){
   $('#feedback h2').text(STORE.hasFeedback);
   const curQue = STORE.questions[STORE.currentQuestionNum];
   if(STORE.hasFeedback === "Incorrect!"){
-    console.log("STORE.hasFeedback");
     $('.user-answer').text(`You answered ${STORE.guess}.`);  
   }
   $('.correct-answer').text(`The correct answer is ${curQue.choices[curQue.correctIndex]}.`);
