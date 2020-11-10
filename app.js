@@ -79,7 +79,7 @@ function render(){
 
 function renderScore(){
   $('#score').show();
-  $('#score div p').text(`${STORE.score}/${STORE.questions.length}`);
+  $('#score div p').text(`Score: ${STORE.score}/${STORE.questions.length}`);
 }
 
 function renderQuestion(){
@@ -89,10 +89,11 @@ function renderQuestion(){
   //Fill the question into the <h1>
   $('#questions h2').text(curQue.title);
   $('#choices').text('');
-  for(let i = 0; i < curQue.choices.length; i++){
+  for(let i=0; i<curQue.choices.length; i++){
     $('#choices').append(`
-      <input type="radio", name="choice", value="${i}", id="${i}">
-      <label for="${i}">${curQue.choices[i]}</label>
+      <input type="radio", name="choice", value="${i}", id="${i}", required="required">
+      <label for="${i}", class="radioStyle">${curQue.choices[i]}</label>
+      <br>
     `
     );
   }

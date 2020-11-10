@@ -18,58 +18,75 @@
       <p class = "score"></p>
       <p class = "progress"></p>
     </div>
-    
   </header>
   <main>
     <div class="wrapper">
       <section id="score">
-        <div>
-          <p></p>
+        <div class="group">
+          <div class="item center">
+            <p></p>
+          </div>
         </div>
       </section>
     </div>
     
     <div class="wrapper">
       <section id="start">
-        <p>Welcome to the Super Mario quiz! There are 5 questions in the quiz. Please click the <em>Start</em> button to start the journey!</p> 
-        <button id="start-quiz">Start</button>
+        <div class="group">
+          <div class="item">
+            <p>Welcome to the Super Mario quiz! There are 5 questions in the quiz. Please click the <em>Start</em> button to start the journey!</p> 
+          </div>
+          <div class="item center">
+            <button id="start-quiz"><strong>Start</strong></button>
+          </div>
+        </div>
       </section>
     </div>
     
     <div class="wrapper">
       <section id="questions">
         <h2></h2>
-        <form>
-          <fieldset id="choices"></fieldset>
-          <button id="submitAns">Submit</button>
-        </form>
+        <div class="group">
+          <div class="item">
+            <form>
+              <fieldset id="choices"></fieldset>
+              <button id="submitAns"><strong>Submit</strong></button>
+            </form>
+          </div>
+        </div>
       </section>
     </div>
 
-    <div class="wrapper">
-      <section id="questions">
-        <h2></h2>
-        <form>
-          <fieldset id="choices"></fieldset>
-          <button id="submitAns">Submit</button>
-        </form>
-      </section>
-    </div>
+   
     
     <div calss="wrapper">
       <section id="feedback">
-        <h2></h2>
-        <p class="user-answer"></p>
-        <p class="correct-answer"></p>
-        <button id="next">Next Question</button>
+        <h2 class="center"></h2>
+        <div class="group feedback-center">
+          <div class="item">
+            <p class="user-answer"></p>
+          </div>
+          <div class="item no-margintop">
+            <p class="correct-answer no-margintop" ></p>
+          </div>
+        </div>
+        <div class="item center">  
+          <button id="next"><strong>Next>></strong></button>
+        </div>      
       </section>
     </div>
     
     <div class="wrapper">
       <section id="summary">
         <h2>Congratulations! You completed all the questions!</h2>
-        <p></p>
-        <button id="restart">Restart</button>
+        <div class="group center">
+          <div class="item center">
+            <p></p>
+          </div>
+          <div class="item">
+            <button id="restart" class="center"><strong>Restart</strong></button>
+          </div>
+        </div>
       </section>
     </div>
 
