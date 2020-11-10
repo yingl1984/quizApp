@@ -2,7 +2,6 @@
  * Example store structure
  */
 const STORE = {
-  // 5 or more questions are required
   questions: 
   [
     { title: "Which of these games came first?" , 
@@ -67,6 +66,7 @@ const STORE = {
 // These functions return HTML templates
 
 /********** RENDER FUNCTION(S) **********/
+// main logical flow
 function render(){
   $('#start').hide();
   $('#questions').hide();
@@ -75,7 +75,7 @@ function render(){
   $('#showScore').hide();
 
   if(!STORE.quizStarted){
-    $('#start').show();
+    renderWel();
   }else if(STORE.hasFeedback){
     renderScore();
     renderFeedback();
@@ -87,23 +87,31 @@ function render(){
   }
 }
 
+// render quiz title
+function renderTitle(){
+  $('#quizTitle').text("Super Mario quiz");
+}
+
+function renderWel(){
+  $('#start').show();
+  $('#start p').text("Welcome to the Super Mario quiz! There are 5 questions in the quiz. Please click the Start button to start the journey!");
+}
+// render the current score and current question number
 function renderScore(){
   $('#showScore').show();
   $('#currentQueNum').text(`Question ${STORE.currentQuestionNum+1} of ${STORE.questions.length}`);
   $('#currentScore').text(`Score: ${STORE.score}/${STORE.questions.length}`);
 }
 
+// render the question and choices
 function renderQuestion(){
   $('#questions').show();
-  
   const curQue = STORE.questions[STORE.currentQuestionNum];
-
   //Fill the question into the <h2>
   $('#questions h2').text(curQue.title);
   // render the image
   $('#questions img').attr("src",curQue.img);
   $('#questions img').attr("alt",curQue.alt);
-  
   // render the choices
   $('#choices').text('');
   for(let i=0; i<curQue.choices.length; i++){
@@ -116,42 +124,41 @@ function renderQuestion(){
   }
 }
 
+// render the feedback page after user submiting the choice
 function renderFeedback(){
   $('#feedback').show();
   $('#feedback h2').removeClass("green");
   $('#feedback h2').removeClass("red");
-
   $('.user-answer').text('');
   $('#feedback h2').text(STORE.hasFeedback);
 
   const curQue = STORE.questions[STORE.currentQuestionNum];
   if(STORE.hasFeedback === "Incorrect!"){
-    
     $('#feedback h2').addClass("red");
     $('.user-answer').text(`You answered ${STORE.guess}.`); 
   }
-
-  
   $('#feedback h2').addClass("green");
-  // $('#feedback h2').className = "green";
   $('.correct-answer').text(`The correct answer is ${curQue.choices[curQue.correctIndex]}.`);
 }
 
+// render the summary page after user finished the quiz
 function renderSummary(){
   $('#summary').show();
+  $('#summary h2').text("Congratulations! You completed all the questions!");
   $('#summary p').text(`Your score is : ${STORE.score}/${STORE.questions.length}`);
 }
-/********** EVENT HANDLER FUNCTIONS **********/
 
-// These functions handle events (submit, click, etc)
+
+/********** EVENT HANDLER FUNCTIONS **********/
+// click start quiz button
 function startQuiz(){
   $('#start-quiz').click(even=>{
    STORE.quizStarted = true;
-  
     render();
   })
 }
 
+// click submit choice button
 function submitChoice(){
   $('#questions form').submit(even => {
     even.preventDefault();
@@ -169,6 +176,7 @@ function submitChoice(){
   });
 }
 
+// click the next button
 function nextQuestion(){
   $('#next').click(even => {
     STORE.hasFeedback=false;
@@ -177,6 +185,7 @@ function nextQuestion(){
   });
 }
 
+// click the restart button
 function restartQuiz(){
   $('#restart').click(event => {
     STORE.quizStarted = false;
@@ -185,8 +194,10 @@ function restartQuiz(){
     render();
   })
 }
-// logical procedure 
+
+// the main function calling all the other functions
 function quiz(){
+  renderTitle();
   render();
   startQuiz();
   submitChoice();

@@ -14,11 +14,11 @@
 <body>
   <header>
     <div class="wrapper">
-      <h1>Super Mario quiz</h1>
+      <h1 id="quizTitle"></h1>
     </div>
   </header>
   <main>
-
+    <!-- Show the current question number and current score -->
     <div class="wrapper">
       <section id="showScore">
         <div class="group">
@@ -29,13 +29,13 @@
         </div>
       </section>
     </div>
-    
+    <!-- start page -->
     <div class="wrapper">
       <section id="start">
         <div id="blank"></div>
         <div class="group">
           <div class="item">
-            <p>Welcome to the Super Mario quiz! There are 5 questions in the quiz. Please click the <em>Start</em> button to start the journey!</p> 
+            <p></p> 
           </div>
           <div class="item center">
             <button id="start-quiz"><strong>Start</strong></button>
@@ -43,7 +43,7 @@
         </div>
       </section>
     </div>
-    
+    <!-- question and choices -->
     <div class="wrapper">
       <section id="questions">
         <h2></h2>
@@ -60,7 +60,7 @@
         </div>
       </section>
     </div>
-
+    <!-- feedback page -->
     <div calss="wrapper">
       <section id="feedback">
         <div class="group feedback-center">
@@ -77,10 +77,10 @@
         </div>      
       </section>
     </div>
-    
+    <!-- summary page appeared at the end of the quiz -->
     <div class="wrapper">
       <section id="summary">
-        <h2>Congratulations! You completed all the questions!</h2>
+        <h2></h2>
         <div class="group center">
           <div class="item center">
             <p></p>
@@ -91,8 +91,8 @@
         </div>
       </section>
     </div>
-
   </main>
+
   <script src="https://code.jquery.com/jquery-3.4.1.slim.js" crossorigin="anonymous"></script>
   <script src="app.js"></script>
 </body>
